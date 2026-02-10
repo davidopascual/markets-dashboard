@@ -1,0 +1,160 @@
+marketsDashboard/
+│
+├── 📋 DOCUMENTATION & SETUP
+│   ├── README.md                    (Comprehensive guide - start here!)
+│   ├── GETTING_STARTED.md          (Quick 5-minute setup)
+│   ├── PROJECT_SUMMARY.md          (Project overview)
+│   ├── FILE_MANIFEST.txt           (File descriptions)
+│   ├── DIRECTORY_TREE.txt          (This file)
+│   └── project_info.txt            (Quick reference)
+│
+├── 🚀 EXECUTABLE SCRIPTS
+│   ├── run.sh                       (Quick launcher ⭐ Use this!)
+│   ├── build.sh                    (Build standalone executable)
+│   └── test_features.py            (Test suite & diagnostics)
+│
+├── ⚙️  CONFIGURATION
+│   ├── requirements.txt             (Python dependencies)
+│   ├── .env.example                 (API key template - copy to .env)
+│   ├── .gitignore                   (Git ignore rules)
+│   └── .env                         (Your API keys - GITIGNORED)
+│
+└── 📂 SOURCE CODE
+    └── src/
+        ├── main.py                  (⭐ Entry point - application main class)
+        ├── config.py                (🔧 CUSTOMIZABLE - all settings here)
+        ├── utils.py                 (Helper functions)
+        ├── data_fetcher.py          (Data retrieval engine)
+        ├── ui_components.py         (Reusable UI widgets)
+        │
+        └── panels/
+            ├── __init__.py
+            ├── market_overview.py   (Panel 1 - Indices, VIX, Rates)
+            ├── movers.py            (Panel 2 - Top gainers/losers)
+            ├── volatility_heatmap.py(Panel 3 - IV heat map)
+            ├── news.py              (Panel 4 - Headlines)
+            ├── economic_calendar.py (Panel 5 - Economic events)
+            └── earnings_calendar.py (Panel 6 - Earnings reports)
+
+────────────────────────────────────────────────────────────────
+
+TOTAL: 20+ Files | ~2000 Lines of Python Code | ~65 KB Source
+
+────────────────────────────────────────────────────────────────
+
+GETTING STARTED
+
+1. Quick Start (Recommended):
+   $ ./run.sh
+   
+   Or manually:
+   $ python3 -m pip install -r requirements.txt
+   $ python3 src/main.py
+
+2. Test Everything:
+   $ python3 test_features.py
+
+3. Customize (Edit this file):
+   $ vim src/config.py
+   - Change symbols to track
+   - Adjust refresh rates
+   - Modify colors
+   - Add/remove data sources
+
+4. Build Standalone Executable:
+   $ ./build.sh
+   $ ./dist/MarketsDashboard
+
+────────────────────────────────────────────────────────────────
+
+KEY FILES TO KNOW
+
+⭐ src/main.py
+   This is where it all happens. Contains the main application class
+   that orchestrates all 6 panels and data loading.
+
+🔧 src/config.py
+   ALL settings are here. Window size, colors, symbols, refresh rates,
+   API endpoints. Edit this to customize the dashboard.
+
+💾 src/data_fetcher.py
+   Fetches market data from yfinance, news from RSS feeds, IV data.
+   Handles caching and rate limiting automatically.
+
+🎨 src/ui_components.py
+   Reusable widgets like QuoteDisplay, StockRow, VolatilityBar.
+   Each panel uses these to display data consistently.
+
+📊 src/panels/*
+   6 individual panel implementations. Each panel has:
+   - __init__() to set up layout
+   - update_data() to fetch and display data
+   - clear() to reset display
+
+────────────────────────────────────────────────────────────────
+
+DATA FLOW
+
+1. User runs: python3 src/main.py
+2. main.py creates MarketsDashboard window
+3. Parallel threads launched:
+   ├─ Thread 1: Fetch market overview data
+   ├─ Thread 2: Fetch top movers
+   ├─ Thread 3: Fetch IV data
+   ├─ Thread 4: Fetch news headlines
+   ├─ Thread 5: Fetch economic calendar
+   └─ Thread 6: Fetch earnings calendar
+4. data_fetcher.py collects data from:
+   ├─ yfinance (primary)
+   ├─ RSS feeds (news)
+   ├─ Historical prices (IV calculation)
+5. Each panel updates as data arrives
+6. Auto-refresh scheduled (60s / 5m / 30m based on market hours)
+
+────────────────────────────────────────────────────────────────
+
+AUTO-REFRESH SCHEDULE
+
+Market Hours (9:30am-4pm ET):   Every 60 seconds
+Premarket (7am-9:30am ET):      Every 5 minutes
+After Hours (4pm-8pm ET):       Every 30 minutes
+Overnight/Weekend:              Every hour
+
+────────────────────────────────────────────────────────────────
+
+WHAT'S WORKING ✓
+
+✓ All imports (Tkinter, yfinance, requests, pandas, etc.)
+✓ Data fetching (SPY, top movers, IV data, news headlines)
+✓ Utility functions (formatting, market hours, status)
+✓ Configuration system (all settings verified)
+✓ UI rendering (6 panels layout)
+✓ Auto-refresh (market hours detection working)
+✓ Error handling (graceful failures)
+✓ Caching system (prevents rate limiting)
+✓ News feeds (4 RSS sources working)
+
+────────────────────────────────────────────────────────────────
+
+NEXT STEPS
+
+1. Read: GETTING_STARTED.md (5 min read)
+2. Test: python3 test_features.py (verify everything works)
+3. Run:  ./run.sh (launch the dashboard)
+4. Explore: Click through all 6 panels
+5. Customize: Edit src/config.py as desired
+
+────────────────────────────────────────────────────────────────
+
+For detailed documentation:
+  ► README.md (full guide)
+  ► GETTING_STARTED.md (quick start)
+  ► PROJECT_SUMMARY.md (overview)
+  ► FILE_MANIFEST.txt (file descriptions)
+
+────────────────────────────────────────────────────────────────
+
+Ready to launch? Type:
+  ./run.sh
+
+────────────────────────────────────────────────────────────────

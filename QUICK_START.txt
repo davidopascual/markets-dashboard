@@ -1,0 +1,139 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                         QUICK START GUIDE                                ║
+║            Daily Markets Dashboard - Ready to Launch!                    ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+🚀 LAUNCH IN 3 SECONDS
+
+  1. Open terminal in marketsDashboard folder
+  2. Activate virtual environment:
+     
+     source venv/bin/activate
+     
+  3. Run the dashboard:
+     
+     python3 src/main.py
+
+✅ DONE! Live market data will appear in <5 seconds
+
+═══════════════════════════════════════════════════════════════════════════
+
+WHAT YOU'LL SEE
+
+The dashboard opens a window (1200x800) with 6 panels:
+
+  ┌─────────────────────────────────────────┐
+  │ Daily Markets Dashboard     [🔄 Refresh] │  ← Status bar
+  ├─────────────────────────────────────────┤
+  │ Market Overview (Indices | Vol | Rates) │  ← Panel 1
+  ├────────────────┬────────────────────────┤
+  │ Top Movers     │ Volatility Heat Map    │  ← Panels 2 & 3
+  ├────────────────┴────────────────────────┤
+  │ News Headlines │ Economic Calendar      │  ← Panels 4 & 5
+  │                │ Earnings Calendar      │  ← Panel 6
+  └─────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+
+YOUR API KEYS ARE LOADED
+
+From .env.example:
+  ✓ ALPHA_VANTAGE_API_KEY
+  ✓ FRED_API_KEY
+  ✓ (Optional other keys)
+
+The app automatically loads these when it starts!
+
+═══════════════════════════════════════════════════════════════════════════
+
+OTHER WAYS TO RUN
+
+Option 2 (Direct without activating):
+  ./venv/bin/python3 src/main.py
+
+Option 3 (Using run.sh):
+  ./run.sh
+
+Option 4 (Test first):
+  source venv/bin/activate
+  python3 test_features.py
+
+═══════════════════════════════════════════════════════════════════════════
+
+AUTO-REFRESH SCHEDULE
+
+  Market Hours (9:30am-4pm ET):   Every 60 seconds
+  Premarket (7am-9:30am ET):      Every 5 minutes
+  After Hours (4pm-8pm ET):       Every 30 minutes
+  Overnight/Weekend:              Every hour
+
+  Manual: Click "🔄 Refresh" button anytime
+
+═══════════════════════════════════════════════════════════════════════════
+
+FILE LOCATIONS
+
+  venv/                  Your virtual environment (40+ packages installed)
+  src/                   Application code (11 Python files)
+  src/config.py          ← Edit here to customize (symbols, colors, etc)
+  .env                   Your API keys (loaded automatically)
+
+═══════════════════════════════════════════════════════════════════════════
+
+DOCUMENTATION
+
+  README.md              Full documentation
+  GETTING_STARTED.md     5-minute quick start
+  VENV_SETUP.md          Virtual environment details
+  FILE_MANIFEST.txt      File descriptions
+
+═══════════════════════════════════════════════════════════════════════════
+
+BASIC COMMANDS
+
+Activate venv:          source venv/bin/activate
+Deactivate venv:        deactivate
+Launch app:             python3 src/main.py
+Run tests:              python3 test_features.py
+View logs:              tail app.log
+Build executable:       ./build.sh
+
+═══════════════════════════════════════════════════════════════════════════
+
+CUSTOMIZATION
+
+Edit src/config.py to change:
+  • Symbols to track (add/remove stocks)
+  • Colors (dark/light theme)
+  • Refresh intervals
+  • Window size
+  • News sources
+
+═══════════════════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING
+
+"Module not found" error?
+  → Make sure venv is activated: source venv/bin/activate
+
+Takes too long to load?
+  → Check internet connection
+  → First load is slower (caches after)
+
+No data showing?
+  → Click "🔄 Refresh" button
+  → Check app.log for errors
+  → Verify API keys in .env.example
+
+═══════════════════════════════════════════════════════════════════════════
+
+READY? TYPE THIS NOW:
+
+  source venv/bin/activate
+  python3 src/main.py
+
+═══════════════════════════════════════════════════════════════════════════
+
+That's it! Enjoy your Daily Markets Dashboard! 📊
+
+═══════════════════════════════════════════════════════════════════════════
