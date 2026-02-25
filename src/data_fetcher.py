@@ -358,6 +358,46 @@ class MarketDataFetcher:
             log_error(f"Error fetching earnings for {symbol}", e)
             return None
 
+    def get_price_history(self, symbol: str, period: str = "5d",
+                          interval: str = "15m") -> Optional[Dict]:
+        """Get price history for a symbol."""
+        try:
+            cache_key = f"history_{symbol}_{period}_{interval}"
+            cached = self.cache.get(cache_key)
+            if cached:
+                return cached
+
+            ticker = yf.Ticker(symbol)
+            hist = ticker.history(period=period, interval=interval)
+
+            if hist.empty:
+                return None
+
+            result = {
+                'symbol': symbol,
+                'timestamps': hist.index.tolist(),
+                'prices': hist['Close'].tolist(),
+                'current_price': hist['Close'].iloc[-1],
+                'open_price': hist['Close'].iloc[0],
+            }
+
+            self.cache.set(cache_key, result, QUOTE_CACHE_TTL)
+            return result
+
+        except Exception as e:
+            log_error(f"Error fetching price history for {symbol}", e)
+            return None
+
+    def get_price_history_batch(self, symbols: List[str], period: str = "5d",
+                                interval: str = "15m") -> Dict[str, Dict]:
+        """Get price history for multiple symbols."""
+        results = {}
+        for symbol in symbols:
+            data = self.get_price_history(symbol, period, interval)
+            if data:
+                results[symbol] = data
+        return results
+
     def clear_cache(self):
         """Clear all cached data."""
         self.cache.clear()

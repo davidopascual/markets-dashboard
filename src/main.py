@@ -6,6 +6,8 @@ Desktop app displaying essential market data every morning.
 import sys
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Add src directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,6 +26,7 @@ from panels.volatility_heatmap import VolatilityHeatMapPanel
 from panels.news import NewsPanel
 from panels.economic_calendar import EconomicCalendarPanel
 from panels.earnings_calendar import EarningsCalendarPanel
+from panels.charts import ChartsPanel
 from utils import (
     log_info, log_error, is_market_hours, is_premarket, is_after_hours,
     get_market_status, get_current_et_time, format_time_et
@@ -96,6 +99,11 @@ class MarketsDashboard(tk.Tk):
         overview = MarketOverviewPanel(self.content_frame, self.data_fetcher)
         overview.pack(fill=tk.X, pady=5)
         self.panels['overview'] = overview
+
+        # Charts panel (full width, below overview)
+        charts = ChartsPanel(self.content_frame, self.data_fetcher)
+        charts.pack(fill=tk.X, pady=5)
+        self.panels['charts'] = charts
 
         # Middle row: Movers and Volatility (side by side)
         middle_frame = tk.Frame(self.content_frame, bg=COLORS['bg_primary'])
@@ -173,12 +181,17 @@ class MarketsDashboard(tk.Tk):
                 if 'earnings' in self.panels:
                     self.panels['earnings'].update_data()
 
+            def fetch_charts():
+                if 'charts' in self.panels:
+                    self.panels['charts'].update_data()
+
             threads.append(threading.Thread(target=fetch_overview, daemon=True))
             threads.append(threading.Thread(target=fetch_movers, daemon=True))
             threads.append(threading.Thread(target=fetch_volatility, daemon=True))
             threads.append(threading.Thread(target=fetch_news, daemon=True))
             threads.append(threading.Thread(target=fetch_econ, daemon=True))
             threads.append(threading.Thread(target=fetch_earnings, daemon=True))
+            threads.append(threading.Thread(target=fetch_charts, daemon=True))
 
             # Start all threads
             for t in threads:

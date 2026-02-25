@@ -43,11 +43,14 @@ class NewsPanel(LabeledFrame):
                 title = headline.get('title', 'No title')
                 source = headline.get('source', 'Unknown')
 
+                link = headline.get('link', '')
+
                 widget = NewsItem(
                     self.scrollable.scrollable_frame,
                     time_str,
                     title,
-                    source
+                    source,
+                    link=link
                 )
                 widget.pack(fill=tk.X, pady=5)
                 self.news_widgets.append(widget)

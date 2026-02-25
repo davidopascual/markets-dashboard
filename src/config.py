@@ -4,7 +4,7 @@ Configuration and constants for the Markets Dashboard.
 
 # Window Settings
 WINDOW_WIDTH = 1200
-WINDOW_HEIGHT = 800
+WINDOW_HEIGHT = 950
 WINDOW_TITLE = "Daily Markets Dashboard"
 THEME = "darkblue"  # ttk theme
 

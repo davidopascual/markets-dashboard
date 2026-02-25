@@ -4,6 +4,7 @@ Uses tk widgets (not ttk) for reliable color rendering on macOS.
 """
 
 import tkinter as tk
+import webbrowser
 from tkinter import ttk
 from config import COLORS, FONTS
 
@@ -114,8 +115,11 @@ class VolatilityBar(tk.Frame):
 class NewsItem(tk.Frame):
     """Display news: [8:42am] Headline text - Source"""
 
-    def __init__(self, parent, time_str: str, headline: str, source: str, **kwargs):
+    def __init__(self, parent, time_str: str, headline: str, source: str,
+                 link: str = "", **kwargs):
         super().__init__(parent, bg=COLORS['bg_primary'], **kwargs)
+
+        self.link = link
 
         # Time label
         time_label = tk.Label(
@@ -129,7 +133,7 @@ class NewsItem(tk.Frame):
 
         # Headline and source
         text = f"{headline} - {source}"
-        headline_label = tk.Label(
+        self.headline_label = tk.Label(
             self,
             text=text,
             font=FONTS['body'],
@@ -139,7 +143,25 @@ class NewsItem(tk.Frame):
             anchor='w',
             justify='left'
         )
-        headline_label.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+        self.headline_label.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+
+        # If link provided, make clickable
+        if link:
+            for widget in (self, self.headline_label, time_label):
+                widget.configure(cursor='hand2')
+                widget.bind('<Button-1>', self._open_link)
+            self.headline_label.bind('<Enter>', self._on_enter)
+            self.headline_label.bind('<Leave>', self._on_leave)
+
+    def _open_link(self, event=None):
+        if self.link:
+            webbrowser.open(self.link)
+
+    def _on_enter(self, event=None):
+        self.headline_label.configure(fg=COLORS['blue'], font=(*FONTS['body'][:2], 'underline'))
+
+    def _on_leave(self, event=None):
+        self.headline_label.configure(fg=COLORS['text_primary'], font=FONTS['body'])
 
 
 class LoadingSpinner(tk.Frame):
